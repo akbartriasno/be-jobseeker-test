@@ -4,7 +4,7 @@ info:
   description: For Assessment Full Stack Engineer 
   version: 1.0
 servers:
-  - url: http://localhost:8000/api
+  - url: http://127.0.0.1:38080/api
     description: for local server
   # - url: http://producation.app/api
   #   description: production server
