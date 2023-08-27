@@ -9,15 +9,361 @@ servers:
   # - url: http://producation.app/api
   #   description: production server
 paths:
-  /users:
+  /api/candidate/{candidateID}:
     get:
-      summary: Returns a list of users.
+      tags:
+        - Candidate
+      summary: Find candidate by ID
+      description: Returns a single candidate
+      operationId: getCandidateById
+      parameters:
+        - name: candidateId
+          in: path
+          description: ID of candidate to return
+          required: true
+          schema:
+            type: string
       responses:
-        '200': 
-          description: A JSON array of user names
+        '200':
+          description: 'Data candidate found !'
           content:
             application/json:
-              schema: 
-                type: array
-                items: 
-                  type: string
+              schema:
+                $ref: '#/components/schemas/CandidateResponse'
+    delete:
+      tags:
+        - Candidate
+      summary: Delete candidate by ID
+      operationId: delete
+      parameters:
+        - name: candidateId
+          in: path
+          description: ID of candidate to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Delete candidate success !'
+  /api/candidate:
+    get:
+      tags:
+        - Candidate
+      summary: Get dataTable candidate
+      description: Returns a list candidate
+      operationId: getListCandidate
+      parameters:
+        - name: start
+          in: query
+          required: true
+          description: first initial number, for next page (start + length)
+          schema:
+            type: integer
+            format: int64
+        - name: length
+          in: query
+          required: true
+          description: the displayed data length
+          schema:
+            type: integer
+            format: int64
+        - name: field
+          in: query
+          required: true
+          description: data sort column name
+          schema:
+            type: string
+        - name: sort
+          in: query
+          required: true
+          description: desc or asc
+          schema:
+            type: string
+        - name: count
+          in: query
+          description: for get count total all data 
+          schema:
+            type: boolean
+        - name: search
+          in: query
+          description: keyword to find data
+          schema:
+            type: string
+        - name: searchCol
+          in: query
+          description: the field name of the schema data to be searched
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Data candidate found !'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateResponseDataTable'
+    post:
+      tags:
+        - Candidate
+      summary: Create new candidate
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateCreate'
+      responses:
+        '200':
+          description: 'Created successfully !'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateResponse'
+    put:
+      tags:
+        - Candidate
+      summary: Update record candidate
+      operationId: update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateUpdate'
+      responses:
+        '200':
+          description: 'Update successfully !'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidateResponse'
+tags:
+  - name: Candidate
+components:
+  schemas:
+    CandidateResponse:
+      type: object
+      properties:
+        title:
+          type: string
+          example: OK 
+        message:
+          type: string
+          example: Status Response
+        type: 
+          type: string
+          example: Type Response
+        code:
+          type: integer
+          example: Status Code Response
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+              description: uuid
+              example: e10ff370-0cbb-4926-ab52-b6479d10f6e5
+            full_name:
+              type: string
+              example: Akbar Triasno S.
+            email:
+              type: string
+              description: unique
+              example: akbar@admin.com
+            phone_number:
+              type: string
+              description: unique
+              example: '085178322110'
+            dob:
+              type: string
+              description: date of birth
+              example: '2021-09-24'
+            pob:
+              type: string
+              description: place of birth
+              example: Surabaya
+            gender:
+              type: string
+              description: enum M and F
+              example: M
+            last_salary:
+              type: string
+              example: 'Rp 12.500.000'
+            year_exp:
+              type: string
+              example: '8'
+          xml:
+            name: candidateresponse
+    CandidateResponseDataTable:
+      type: object
+      properties:
+        title:
+          type: string
+          example: OK 
+        message:
+          type: string
+          example: Status Response
+        type: 
+          type: string
+          example: Type Response
+        code:
+          type: integer
+          example: Status Code Response
+        data:
+          type: object
+          properties:
+            page:
+              type: integer
+              example: 1
+            length:
+              type: integer
+              example: 10
+            totalRecords:
+              type: integer
+              example: 100
+            totalDisplayRecords:
+              type: integer
+              example: 10
+            data:
+              type: array
+              items: 
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: uuid
+                    example: e10ff370-0cbb-4926-ab52-b6479d10f6e5
+                  full_name:
+                    type: string
+                    example: Akbar Triasno S.
+                  email:
+                    type: string
+                    example: akbar@admin.com
+                  phone_number:
+                    type: string
+                    example: '085175322110'
+                  created_at:
+                    type: datetime
+                    description: date created
+                    example: '2023-08-27 03:39:36'
+          xml:
+            name: candidateresponsedatatable
+    Candidate:
+      type: object
+      properties:
+        id:
+          type: string
+          description: uuid
+          example: e10ff370-0cbb-4926-ab52-b6479d10f6e5
+        full_name:
+          type: string
+          example: Akbar Triasno S.
+        email:
+          type: string
+          description: unique
+          example: akbar@admin.com
+        phone_number:
+          type: string
+          description: unique
+          example: '085178322110'
+        dob:
+          type: string
+          description: date of birth
+          example: '2021-09-24'
+        pob:
+          type: string
+          description: place of birth
+          example: Surabaya
+        gender:
+          type: string
+          description: enum M and F
+          example: M
+        last_salary:
+          type: string
+          example: 'Rp 12.500.000'
+        year_exp:
+          type: string
+          example: '8'
+      xml:
+        name: candidate
+    CandidateCreate:
+      type: object
+      properties:
+        full_name:
+          type: string
+          required: true
+          example: Akbar Triasno S.
+        email:
+          type: string
+          required: true
+          description: unique
+          example: akbar@admin.com
+        phone_number:
+          type: string
+          description: unique
+          example: '085178322110'
+        dob:
+          type: string
+          required: true
+          description: date of birth
+          example: '2021-09-24'
+        pob:
+          type: string
+          required: true
+          description: place of birth
+          example: Surabaya
+        gender:
+          type: string
+          required: true
+          description: enum M and F
+          example: M
+        last_salary:
+          type: string
+          example: 'Rp 12.500.000'
+        year_exp:
+          type: string
+          example: '8'
+      xml:
+        name: candidatecreate
+    CandidateUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+          required: true
+          description: uuid
+          example: e10ff370-0cbb-4926-ab52-b6479d10f6e5
+        full_name:
+          type: string
+          required: true
+          example: Akbar Triasno S.
+        email:
+          type: string
+          required: true
+          description: unique
+          example: akbar@admin.com
+        phone_number:
+          type: string
+          description: unique
+          example: '085178322110'
+        dob:
+          type: string
+          required: true
+          description: date of birth
+          example: '2021-09-24'
+        pob:
+          type: string
+          required: true
+          description: place of birth
+          example: Surabaya
+        gender:
+          type: string
+          required: true
+          description: enum M and F
+          example: M
+        last_salary:
+          type: string
+          example: 'Rp 12.500.000'
+        year_exp:
+          type: string
+          example: '8'
+      xml:
+        name: candidateupdate

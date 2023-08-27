@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\CandidateController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::view('/swagger', 'swagger');
+
+Route::get('/check', [CandidateController::class, 'CheckConnDB']);

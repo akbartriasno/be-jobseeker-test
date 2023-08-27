@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('t_candidates', function (Blueprint $table) {
-            $table->uuid('candidate_id')->primary();
-            $table->string('candidate_email')->unique();
-            $table->string('candidate_phone_number')->nullable()->unique();
-            $table->string('candidate_full_name');
-            $table->date('candidate_dob');
-            $table->string('candidate_pob');
-            $table->string('candidate_gender');
-            $table->string('candidate_year_exp');
-            $table->string('candidate_last_salary')->nullable();
+            $table->uuid('id')->primary();
+            $table->string('email')->unique();
+            $table->string('phone_number')->nullable()->unique();
+            $table->string('full_name');
+            $table->date('dob');
+            $table->string('pob');
+            $table->string('gender');
+            $table->string('year_exp')->nullable();
+            $table->string('last_salary')->nullable();
             $table->timestamps();
         });
     }
