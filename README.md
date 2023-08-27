@@ -9,3 +9,15 @@ Using PHP 8.2 and Node 18.17 LTS
     <li>API Documentation menggunakan Swagger, jadi jalankan perintah npm run build</li>
     <li>Start server menggunakan perintah php artisan serve --host=127.0.0.1 --port=38080</li>
 </ol>
+```python
+import foobar
+
+# returns 'words'
+foobar.pluralize('word')
+
+# returns 'geese'
+foobar.pluralize('goose')
+
+# returns 'phenomenon'
+foobar.singularize('phenomena')
+```
