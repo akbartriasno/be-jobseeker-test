@@ -1,4 +1,5 @@
 ## API BACKEND
+Using PHP 8.2 and Node 18.17 LTS
 
 <ol>
     <li>Jalankan perintah composer install && npm install && php artisan key:generate</li>
