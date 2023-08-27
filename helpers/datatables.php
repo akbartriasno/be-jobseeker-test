@@ -88,6 +88,8 @@ function createTables($request = null, $components = null, $extraParam = null, $
                     'length' => $perpage,
                     'totalRecords' => $total,
                     'totalDisplayRecords' => count($result),
+                    'searchKeyword' => $search,
+                    'searchColumn' => $searchCol,
                     'data' => $result
                 ]
             ];
