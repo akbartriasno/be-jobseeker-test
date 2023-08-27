@@ -2,7 +2,7 @@
 Using PHP 8.2 and Node 18.17 LTS
 
 <ol>
-    <li>Jalankan perintah composer install && npm install && php artisan key:generate</li>
+    <li>Jalankan perintah ```composer install && npm install && php artisan key:generate```</li>
     <li>Copy file .env.example menjadi .env</li>
     <li>Sesuaikan environtment database mysql</li>
     <li>Jalankan perintah php artisan migrate:fresh --seed --seeder=CandidateSeeder</li>
